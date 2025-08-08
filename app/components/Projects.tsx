@@ -39,14 +39,14 @@ export function Projects() {
             href={p.href}
             className="group rounded-xl border border-black/10 dark:border-white/10 overflow-hidden"
           >
-            <div className="aspect-[16/9] bg-foreground/5 grid place-items-center">
+            <div className="relative aspect-[16/9] bg-foreground/5">
               {p.image ? (
                 <Image
                   src={p.image}
                   alt="project cover"
-                  width={160}
-                  height={90}
-                  className="opacity-70 group-hover:opacity-100 transition-opacity"
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-contain opacity-70 group-hover:opacity-100 transition-opacity"
                 />
               ) : null}
             </div>
