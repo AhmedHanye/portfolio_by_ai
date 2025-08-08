@@ -11,27 +11,12 @@ export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [canRender, setCanRender] = useState(false);
-  const [sceneOk, setSceneOk] = useState<null | boolean>(null);
   const [prefersReduced, setPrefersReduced] = useState(false);
-  const sceneUrl = profile.spline?.sceneUrl || "";
   const suppressedRef = useRef<null | (() => void)>(null);
-
-  function isValidSceneUrl(url: string) {
-    if (!url) return { valid: false, mode: "cors" as const };
-    const endsCorrectly =
-      url.endsWith("/scene.splinecode") || url.endsWith(".splinecode");
-    if (!endsCorrectly) return { valid: false, mode: "cors" as const };
-    if (url.startsWith("/"))
-      return { valid: true, mode: "same-origin" as const };
-    try {
-      const u = new URL(url);
-      if (u.protocol !== "https:")
-        return { valid: false, mode: "cors" as const };
-      return { valid: true, mode: "cors" as const };
-    } catch {
-      return { valid: false, mode: "cors" as const };
-    }
-  }
+  const localScene =
+    profile.spline?.sceneUrl && profile.spline.sceneUrl.startsWith("/")
+      ? profile.spline.sceneUrl
+      : "/spline/scene.splinecode";
 
   useEffect(() => {
     const { gsap } = getGSAP();
@@ -92,55 +77,12 @@ export function Hero() {
     return () => mq.removeEventListener?.("change", update);
   }, []);
 
-  useEffect(() => {
-    const { valid, mode } = isValidSceneUrl(sceneUrl);
-    if (!valid) {
-      setSceneOk(false);
-      return;
-    }
-    let cancelled = false;
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
-    async function probeScene() {
-      try {
-        const res = await fetch(sceneUrl, {
-          method: "HEAD",
-          mode,
-          signal: controller.signal,
-        });
-        let ok = res.ok;
-        const ct = res.headers.get("content-type") || "";
-        if (ok && ct.includes("text/html")) ok = false;
-        if (!ok) {
-          const resGet = await fetch(sceneUrl, {
-            method: "GET",
-            mode,
-            signal: controller.signal,
-          });
-          const ctGet = resGet.headers.get("content-type") || "";
-          ok = resGet.ok && !ctGet.includes("text/html");
-        }
-        if (!cancelled) setSceneOk(ok);
-      } catch {
-        if (!cancelled) setSceneOk(false);
-      } finally {
-        clearTimeout(timeout);
-      }
-    }
-    probeScene();
-    return () => {
-      cancelled = true;
-      clearTimeout(timeout);
-      controller.abort();
-    };
-  }, [sceneUrl]);
-
   return (
     <section className="relative min-h-[90svh] grid place-items-center overflow-hidden">
       <div className="absolute inset-0 -z-10">
         {prefersReduced ? (
           <div className="h-full w-full bg-foreground/5" />
-        ) : canRender && sceneOk === true ? (
+        ) : canRender ? (
           <ErrorBoundary
             fallback={
               <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
@@ -148,9 +90,9 @@ export function Hero() {
               </div>
             }
           >
-            {/* Uses your configured Spline scene URL from app/data/profile.ts */}
+            {/* Uses a local Spline scene from public/ */}
             <Spline
-              scene={sceneUrl}
+              scene={localScene}
               onError={(e: unknown) => {
                 if (process.env.NODE_ENV !== "production") {
                   console.warn("Spline failed to load scene:", e);
@@ -158,13 +100,9 @@ export function Hero() {
               }}
             />
           </ErrorBoundary>
-        ) : sceneOk === null ? (
-          <div className="h-full w-full grid place-items-center text-sm">
-            Loading 3D…
-          </div>
         ) : (
           <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
-            {sceneOk === false ? "3D scene failed to load" : "3D not supported"}
+            {"3D not supported"}
           </div>
         )}
       </div>
