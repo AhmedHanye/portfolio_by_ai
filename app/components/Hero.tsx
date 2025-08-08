@@ -173,13 +173,15 @@ export function Hero() {
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
         <h1
           ref={titleRef}
-          className="text-4xl sm:text-6xl font-extrabold tracking-tight"
+          className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-balance"
         >
-          {profile.name} — {profile.title}
+          <span>{profile.name}</span> 
+          <br />
+          <span>{profile.title}</span>
         </h1>
         <p
           ref={subtitleRef}
-          className="mt-4 text-base sm:text-lg text-foreground/80"
+          className="mt-5 text-base sm:text-xl text-foreground/80 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
         >
           {profile.summary[0]}
         </p>

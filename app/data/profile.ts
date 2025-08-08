@@ -38,7 +38,7 @@ export type Profile = {
 // TODO: Replace placeholders with real data parsed from CV
 export const profile: Profile = {
   name: "Ahmed Hanye",
-  title: "Software Engineer | Full Stack Web Developer | Next.js | Django",
+  title: "Software Engineer",
   summary: [
     "I’m a software engineer specializing in full stack development, dedicated to crafting dynamic, high-performance web applications.",
     "I excel at solving complex challenges and designing intuitive user experiences that drive real-world impact. Programming isn’t just a career—it’s an evolving craft I continually refine to push the boundaries of innovation.",
