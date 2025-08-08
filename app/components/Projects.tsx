@@ -1,33 +1,10 @@
 "use client";
 import Image from "next/image";
 import { Section } from "./Section";
+import { profile } from "../data/profile";
 
-type Project = {
-  title: string;
-  description: string;
-  href?: string;
-  image?: string;
-  tags?: string[];
-};
-
-const projects: Project[] = [
-  {
-    title: "Spline + GSAP Landing",
-    description:
-      "A 3D-driven hero with scroll-triggered storytelling and smooth UI transitions.",
-    href: "#",
-    image: "/vercel.svg",
-    tags: ["Next.js", "GSAP", "Spline"],
-  },
-  {
-    title: "Dashboard UI",
-    description:
-      "Accessible, responsive dashboard with Tailwind and component patterns.",
-    href: "#",
-    image: "/window.svg",
-    tags: ["React", "Tailwind"],
-  },
-];
+type Project = (typeof profile.projects)[number];
+const projects: Project[] = profile.projects;
 
 export function Projects() {
   return (

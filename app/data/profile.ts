@@ -37,46 +37,54 @@ export type Profile = {
 
 // TODO: Replace placeholders with real data parsed from CV
 export const profile: Profile = {
-  name: "Ahmed",
-  title: "Frontend Developer",
+  name: "Ahmed Hanye",
+  title: "Software Engineer | Full Stack Web Developer | Next.js | Django",
   summary: [
-    "Frontend developer focused on crafting responsive, animated experiences with Next.js, Tailwind, GSAP, and Spline.",
+    "I’m a software engineer specializing in full stack development, dedicated to crafting dynamic, high-performance web applications.",
+    "I excel at solving complex challenges and designing intuitive user experiences that drive real-world impact. Programming isn’t just a career—it’s an evolving craft I continually refine to push the boundaries of innovation.",
   ],
-  location: "",
-  skills: ["Next.js", "React", "TypeScript", "Tailwind", "GSAP", "Spline"],
+  location: "Egypt",
+  skills: ["Next.js", "React", "TypeScript", "Django", "Python"],
   socials: {
-    email: "you@example.com",
-    github: "https://github.com/",
-    linkedin: "https://linkedin.com/in/",
-    website: "",
+    email: "ahmedhanyehossny@gmail.com",
+    linkedin: "https://www.linkedin.com/in/ahmed-hanye",
+    // Add your GitHub/website if you want them shown in Contact
+    // github: "https://github.com/<your-username>",
+    // website: "https://<your-website>"
   },
   projects: [
     {
-      title: "Spline + GSAP Landing",
+      title: "Portfolio (09/2024)",
       description:
-        "A 3D-driven hero with scroll-triggered storytelling and smooth UI transitions.",
+        "Showcases skills and projects using modern web technologies.",
       href: "#",
       image: "/vercel.svg",
-      tags: ["Next.js", "GSAP", "Spline"],
+      tags: ["Next.js", "TypeScript", "React"],
     },
     {
-      title: "Dashboard UI",
-      description:
-        "Accessible, responsive dashboard with Tailwind and component patterns.",
+      title: "Security Plus (01/2024)",
+      description: "Advanced security features to enhance browsing safety.",
       href: "#",
       image: "/window.svg",
-      tags: ["React", "Tailwind"],
+      tags: ["Security", "TypeScript", "Web"],
+    },
+    {
+      title: "Awwwards (Zentry) (12/2024 – 01/2025)",
+      description:
+        "An award-winning website with high-end interactions and visuals.",
+      href: "#",
+      image: "/globe.svg",
+      tags: ["Next.js", "Animations", "GSAP"],
     },
   ],
   experience: [
     {
-      company: "Your Company",
-      role: "Frontend Developer",
-      period: "2023 — Present",
+      company: "Mudeer",
+      role: "Frontend Engineer",
+      period: "03/2025 – 06/2025",
       points: [
-        "Built responsive React/Next.js apps with TypeScript and Tailwind.",
-        "Implemented GSAP animations and Scroll-driven experiences.",
-        "Collaborated across design/dev to ship polished product features.",
+        "Built responsive UI components and improved user experience.",
+        "Collaborated closely with design and backend teams for seamless integration and performance.",
       ],
     },
   ],

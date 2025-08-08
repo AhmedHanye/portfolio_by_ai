@@ -1,5 +1,6 @@
 "use client";
 import { Section } from "./Section";
+import { profile } from "../data/profile";
 
 export function Contact() {
   return (
@@ -10,20 +11,20 @@ export function Contact() {
         </p>
         <div className="mt-4 flex flex-col sm:flex-row gap-3">
           <a
-            href="mailto:you@example.com"
+            href={`mailto:${profile.socials.email}`}
             className="rounded-md bg-foreground text-background px-4 py-2 text-sm font-medium hover:opacity-90"
           >
             Email me
           </a>
           <a
-            href="https://linkedin.com"
+            href={profile.socials.linkedin || "#"}
             target="_blank"
             className="rounded-md border border-foreground/20 px-4 py-2 text-sm font-medium hover:bg-foreground/5"
           >
             LinkedIn
           </a>
           <a
-            href="https://github.com"
+            href={profile.socials.github || "#"}
             target="_blank"
             className="rounded-md border border-foreground/20 px-4 py-2 text-sm font-medium hover:bg-foreground/5"
           >

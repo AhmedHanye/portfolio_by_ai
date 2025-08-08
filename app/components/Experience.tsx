@@ -1,25 +1,9 @@
 "use client";
 import { Section } from "./Section";
+import { profile } from "../data/profile";
 
-export type ExperienceItem = {
-  company: string;
-  role: string;
-  period: string;
-  points: string[];
-};
-
-const experience: ExperienceItem[] = [
-  {
-    company: "Your Company",
-    role: "Frontend Developer",
-    period: "2023 — Present",
-    points: [
-      "Built responsive React/Next.js apps with TypeScript and Tailwind.",
-      "Implemented GSAP animations and Scroll-driven experiences.",
-      "Collaborated across design/dev to ship polished product features.",
-    ],
-  },
-];
+type ExperienceItem = (typeof profile.experience)[number];
+const experience: ExperienceItem[] = profile.experience;
 
 export function Experience() {
   return (
