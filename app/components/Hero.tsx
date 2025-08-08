@@ -1,13 +1,9 @@
 "use client";
-import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { getGSAP } from "../lib/gsap";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { profile } from "../data/profile";
-
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-});
+import Spline from "./SplineLite";
 
 export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
