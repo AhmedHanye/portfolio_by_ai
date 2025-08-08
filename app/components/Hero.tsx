@@ -3,9 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { getGSAP } from "../lib/gsap";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { profile } from "../data/profile";
+import { useTranslation } from "react-i18next";
 import Spline from "./SplineLite";
 
 export function Hero() {
+  const { t } = useTranslation("common");
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [canRender, setCanRender] = useState(false);
@@ -177,22 +179,22 @@ export function Hero() {
         </h1>
         <p
           ref={subtitleRef}
-          className="mt-5 text-base sm:text-lg font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-violet-600 to-sky-400 dark:text-foreground/80  max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
+          className="mt-5 text-base sm:text-lg font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-violet-600 to-sky-400 dark:text-foreground/80 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
         >
           {profile.summary[0]}
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <a
             href="#projects"
-            className="rounded-md bg-foreground dark:bg-white text-background px-4 py-2 text-sm font-medium hover:opacity-90"
+            className="rounded-md bg-foreground text-background px-4 py-2 text-sm font-medium hover:opacity-90"
           >
-            View Projects
+            {t("cta.viewProjects")}
           </a>
           <a
             href="#contact"
             className="rounded-md border border-foreground/20 bg-background px-4 py-2 text-sm font-medium hover:bg-background/90 dark:hover:bg-foreground/5"
           >
-            Contact
+            {t("cta.contact")}
           </a>
         </div>
       </div>

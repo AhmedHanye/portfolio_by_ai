@@ -3,15 +3,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { profile } from "../data/profile";
 import { ModeToggle } from "./ModeToggle";
+import { LanguageToggle } from "./LanguageToggle";
+import { useTranslation } from "react-i18next";
 
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
-];
+  { href: "#about", key: "about" },
+  { href: "#experience", key: "experience" },
+  { href: "#projects", key: "projects" },
+  { href: "#contact", key: "contact" },
+] as const;
 
 export function Navbar() {
+  const { t } = useTranslation("common");
   const [open, setOpen] = useState(false);
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-foreground/10">
@@ -26,11 +29,12 @@ export function Navbar() {
               href={l.href}
               className="hover:opacity-70 transition-opacity"
             >
-              {l.label}
+              {t(`nav.${l.key}`)}
             </a>
           ))}
         </nav>
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-2">
+          <LanguageToggle />
           <ModeToggle />
         </div>
         <button
@@ -52,10 +56,11 @@ export function Navbar() {
                 className="py-2"
                 onClick={() => setOpen(false)}
               >
-                {l.label}
+                {t(`nav.${l.key}`)}
               </a>
             ))}
-            <div className="pt-2">
+            <div className="pt-2 flex items-center justify-between">
+              <LanguageToggle />
               <ModeToggle />
             </div>
           </nav>
