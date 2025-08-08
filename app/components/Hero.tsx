@@ -173,9 +173,9 @@ export function Hero() {
           ref={titleRef}
           className="text-2xl sm:text-5xl font-extrabold tracking-tight leading-tight text-balance text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-violet-600 to-sky-600 dark:text-foreground dark:bg-none drop-shadow-lg"
         >
-          <span>{profile.name}</span>
+          <span>{(t("profile.name") as string) || profile.name}</span>
           <br />
-          <span>{profile.title}</span>
+          <span>{(t("profile.title") as string) || profile.title}</span>
         </h1>
         <p
           ref={subtitleRef}

@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "about": "نبذة",
+    "experience": "الخبرات",
+    "projects": "المشاريع",
+    "contact": "تواصل"
+  },
+  "cta": {
+    "viewProjects": "عرض المشاريع",
+    "contact": "تواصل",
+    "emailMe": "راسلني"
+  },
+  "sections": {
+    "about": "نبذة",
+    "experience": "الخبرات",
+    "projects": "المشاريع",
+    "contact": "تواصل"
+  },
+  "contact": {
+    "lead": "عندك فكرة أو فرصة؟ خلّينا نتكلم.",
+    "linkedin": "لينكدإن",
+    "github": "GitHub"
+  },
+  "footer": {
+    "builtWith": "بُني باستخدام Next.js و Tailwind و GSAP و Spline.",
+    "allRights": "جميع الحقوق محفوظة."
+  },
+  "profile": {
+    "name": "أحمد هانئ",
+    "title": "مهندس برمجيات",
+    "summary": [
+      "أنا مهندس برمجيات متخصص في تطوير الواجهات الأمامية والخلفية، أركز على بناء تطبيقات ويب ديناميكية وعالية الأداء.",
+      "أتميز بحل التحديات المعقدة وتصميم تجارب مستخدم بديهية تُحدث تأثيرًا فعليًا. البرمجة ليست مجرد وظيفة—بل حرفة أطورها باستمرار لأدفع حدود الابتكار."
+    ],
+    "location": "مصر",
+    "skills": ["Next.js", "React", "TypeScript", "Django", "Python"],
+    "projects": [
+      {
+        "title": "الملف الشخصي (09/2024)",
+        "description": "يعرض المهارات والمشاريع باستخدام تقنيات الويب الحديثة.",
+        "image": "/vercel.svg",
+        "tags": ["Next.js", "TypeScript", "React"]
+      },
+      {
+        "title": "سيكيوريتي بلس (01/2024)",
+        "description": "ميزات أمان متقدمة لتعزيز سلامة التصفح.",
+        "image": "/window.svg",
+        "tags": ["Security", "TypeScript", "Web"]
+      },
+      {
+        "title": "Awwwards (Zentry) (12/2024 – 01/2025)",
+        "description": "موقع حاصل على جوائز بتفاعلات ومرئيات عالية الجودة.",
+        "image": "/globe.svg",
+        "tags": ["Next.js", "Animations", "GSAP"]
+      }
+    ],
+    "experience": [
+      {
+        "company": "Mudeer",
+        "role": "مهندس واجهات أمامية",
+        "period": "03/2025 – 06/2025",
+        "points": [
+          "بناء مكونات واجهة مستخدم متجاوبة وتحسين تجربة المستخدم.",
+          "التعاون مع فرق التصميم والخلفية لتحقيق تكامل وأداء سلس."
+        ]
+      }
+    ]
+  }
+}

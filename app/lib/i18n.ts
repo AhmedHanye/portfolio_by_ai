@@ -1,36 +1,12 @@
 "use client";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import enCommon from "../i18n/locales/en/common.json" assert { type: "json" };
+import arCommon from "../i18n/locales/ar/common.json" assert { type: "json" };
 
 const resources = {
-  en: {
-    common: {
-      nav: {
-        about: "About",
-        experience: "Experience",
-        projects: "Projects",
-        contact: "Contact",
-      },
-      cta: {
-        viewProjects: "View Projects",
-        contact: "Contact",
-      },
-    },
-  },
-  ar: {
-    common: {
-      nav: {
-        about: "نبذة",
-        experience: "الخبرات",
-        projects: "المشاريع",
-        contact: "تواصل",
-      },
-      cta: {
-        viewProjects: "عرض المشاريع",
-        contact: "تواصل",
-      },
-    },
-  },
+  en: { common: enCommon },
+  ar: { common: arCommon },
 } as const;
 
 let initialized = false;

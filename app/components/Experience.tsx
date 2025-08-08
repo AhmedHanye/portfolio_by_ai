@@ -1,13 +1,26 @@
 "use client";
 import { Section } from "./Section";
-import { profile } from "../data/profile";
+import { useTranslation } from "react-i18next";
 
-type ExperienceItem = (typeof profile.experience)[number];
-const experience: ExperienceItem[] = profile.experience;
+type ExperienceItem = {
+  company: string;
+  role: string;
+  period: string;
+  points: string[];
+};
+
+function useExperience(): ExperienceItem[] {
+  const { t } = useTranslation("common");
+  return (
+    (t("profile.experience", { returnObjects: true }) as ExperienceItem[]) || []
+  );
+}
 
 export function Experience() {
+  const { t } = useTranslation("common");
+  const experience = useExperience();
   return (
-    <Section id="experience" title="Experience">
+    <Section id="experience" title={t("sections.experience") as string}>
       <ul className="space-y-8">
         {experience.map((item) => (
           <li

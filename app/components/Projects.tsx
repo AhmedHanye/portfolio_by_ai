@@ -1,14 +1,26 @@
 "use client";
 import Image from "next/image";
 import { Section } from "./Section";
-import { profile } from "../data/profile";
+import { useTranslation } from "react-i18next";
 
-type Project = (typeof profile.projects)[number];
-const projects: Project[] = profile.projects;
+type Project = {
+  title: string;
+  description: string;
+  href?: string;
+  image?: string;
+  tags?: string[];
+};
+
+function useProjects(): Project[] {
+  const { t } = useTranslation("common");
+  return (t("profile.projects", { returnObjects: true }) as Project[]) || [];
+}
 
 export function Projects() {
+  const { t } = useTranslation("common");
+  const projects = useProjects();
   return (
-    <Section id="projects" title="Projects">
+    <Section id="projects" title={t("sections.projects") as string}>
       <div className="grid sm:grid-cols-2 gap-6">
         {projects.map((p) => (
           <a
