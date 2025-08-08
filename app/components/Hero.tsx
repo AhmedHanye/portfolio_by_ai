@@ -1,17 +1,22 @@
 "use client";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { getGSAP } from "../lib/gsap";
 import { ErrorBoundary } from "./ErrorBoundary";
+import { profile } from "../data/profile";
 
-const Spline = dynamic(() => import("@splinetool/react-spline"), { ssr: false });
-const SCENE_URL = "https://prod.spline.design/y5tvlYx0JtXYfVwm/scene.splinecode"; // Replace with your own scene URL
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+});
 
 export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [canRender, setCanRender] = useState(false);
   const [sceneOk, setSceneOk] = useState<null | boolean>(null);
+  const [prefersReduced, setPrefersReduced] = useState(false);
+  const sceneUrl = profile.spline?.sceneUrl || "";
 
   useEffect(() => {
     const { gsap } = getGSAP();
@@ -47,12 +52,43 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
+    // Respect prefers-reduced-motion at runtime
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setPrefersReduced(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (!sceneUrl) {
+      setSceneOk(false);
+      return;
+    }
     let cancelled = false;
     const controller = new AbortController();
     async function probeScene() {
       try {
-        const res = await fetch(SCENE_URL, { method: "GET", mode: "cors", signal: controller.signal });
-        if (!cancelled) setSceneOk(res.ok);
+        const res = await fetch(sceneUrl, {
+          method: "HEAD",
+          mode: "cors",
+          signal: controller.signal,
+        });
+        let ok = res.ok;
+        const ct = res.headers.get("content-type") || "";
+        // Spline usually serves octet-stream; if we see HTML it's likely an error page
+        if (ok && ct && ct.includes("text/html")) ok = false;
+        if (!ok) {
+          // retry GET in case HEAD is blocked
+          const resGet = await fetch(sceneUrl, {
+            method: "GET",
+            mode: "cors",
+            signal: controller.signal,
+          });
+          const ctGet = resGet.headers.get("content-type") || "";
+          ok = resGet.ok && !ctGet.includes("text/html");
+        }
+        if (!cancelled) setSceneOk(ok);
       } catch {
         if (!cancelled) setSceneOk(false);
       }
@@ -62,12 +98,24 @@ export function Hero() {
       cancelled = true;
       controller.abort();
     };
-  }, []);
+  }, [sceneUrl]);
 
   return (
     <section className="relative min-h-[90svh] grid place-items-center overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        {canRender && sceneOk === true ? (
+        {prefersReduced ? (
+          profile.spline?.poster ? (
+            <Image
+              src={profile.spline.poster}
+              alt="Hero background"
+              fill
+              priority
+              className="object-cover"
+            />
+          ) : (
+            <div className="h-full w-full bg-foreground/5" />
+          )
+        ) : canRender && sceneOk === true ? (
           <ErrorBoundary
             fallback={
               <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
@@ -75,11 +123,13 @@ export function Hero() {
               </div>
             }
           >
-            {/* Replace with your Spline scene URL */}
-            <Spline scene={SCENE_URL} />
+            {/* Uses your configured Spline scene URL from app/data/profile.ts */}
+            <Spline scene={sceneUrl} />
           </ErrorBoundary>
         ) : sceneOk === null ? (
-          <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">Loading 3D…</div>
+          <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
+            Loading 3D…
+          </div>
         ) : (
           <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
             {sceneOk === false ? "3D scene failed to load" : "3D not supported"}
@@ -91,14 +141,13 @@ export function Hero() {
           ref={titleRef}
           className="text-4xl sm:text-6xl font-extrabold tracking-tight"
         >
-          Ahmed — Frontend Developer
+          {profile.name} — {profile.title}
         </h1>
         <p
           ref={subtitleRef}
           className="mt-4 text-base sm:text-lg text-foreground/80"
         >
-          Building delightful, performant web experiences with Next.js, GSAP,
-          and 3D.
+          {profile.summary[0]}
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <a
