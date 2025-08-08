@@ -48,9 +48,8 @@ export const profile: Profile = {
   socials: {
     email: "ahmedhanyehossny@gmail.com",
     linkedin: "https://www.linkedin.com/in/ahmed-hanye",
-    // Add your GitHub/website if you want them shown in Contact
-    // github: "https://github.com/<your-username>",
-    // website: "https://<your-website>"
+    github: "https://github.com/ahmedhanye",
+    website: "https://ahmedhanye.vercel.app/"
   },
   projects: [
     {
