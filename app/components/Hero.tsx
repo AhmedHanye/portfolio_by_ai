@@ -16,6 +16,24 @@ export function Hero() {
   const [sceneOk, setSceneOk] = useState<null | boolean>(null);
   const [prefersReduced, setPrefersReduced] = useState(false);
   const sceneUrl = profile.spline?.sceneUrl || "";
+  const suppressedRef = useRef<null | (() => void)>(null);
+
+  function isValidSceneUrl(url: string) {
+    if (!url) return { valid: false, mode: "cors" as const };
+    const endsCorrectly =
+      url.endsWith("/scene.splinecode") || url.endsWith(".splinecode");
+    if (!endsCorrectly) return { valid: false, mode: "cors" as const };
+    if (url.startsWith("/"))
+      return { valid: true, mode: "same-origin" as const };
+    try {
+      const u = new URL(url);
+      if (u.protocol !== "https:")
+        return { valid: false, mode: "cors" as const };
+      return { valid: true, mode: "cors" as const };
+    } catch {
+      return { valid: false, mode: "cors" as const };
+    }
+  }
 
   useEffect(() => {
     const { gsap } = getGSAP();
@@ -36,6 +54,23 @@ export function Hero() {
       });
     });
     return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    // In development, filter out a known noisy Spline runtime console.error("Missing property")
+    if (process.env.NODE_ENV !== "development") return;
+    const orig = console.error;
+    console.error = function (...args) {
+      if (typeof args[0] === "string" && args[0].includes("Missing property")) {
+        return; // suppress this noisy message in dev; ErrorBoundary will still handle real crashes
+      }
+      // @ts-expect-error - restoring original console.error binding
+      return orig.apply(this, args);
+    } as typeof console.error;
+    suppressedRef.current = () => {
+      console.error = orig;
+    };
+    return () => suppressedRef.current?.();
   }, []);
 
   useEffect(() => {
@@ -60,28 +95,28 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (!sceneUrl) {
+    const { valid, mode } = isValidSceneUrl(sceneUrl);
+    if (!valid) {
       setSceneOk(false);
       return;
     }
     let cancelled = false;
     const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
     async function probeScene() {
       try {
         const res = await fetch(sceneUrl, {
           method: "HEAD",
-          mode: "cors",
+          mode,
           signal: controller.signal,
         });
         let ok = res.ok;
         const ct = res.headers.get("content-type") || "";
-        // Spline usually serves octet-stream; if we see HTML it's likely an error page
-        if (ok && ct && ct.includes("text/html")) ok = false;
+        if (ok && ct.includes("text/html")) ok = false;
         if (!ok) {
-          // retry GET in case HEAD is blocked
           const resGet = await fetch(sceneUrl, {
             method: "GET",
-            mode: "cors",
+            mode,
             signal: controller.signal,
           });
           const ctGet = resGet.headers.get("content-type") || "";
@@ -90,11 +125,14 @@ export function Hero() {
         if (!cancelled) setSceneOk(ok);
       } catch {
         if (!cancelled) setSceneOk(false);
+      } finally {
+        clearTimeout(timeout);
       }
     }
     probeScene();
     return () => {
       cancelled = true;
+      clearTimeout(timeout);
       controller.abort();
     };
   }, [sceneUrl]);
@@ -113,7 +151,17 @@ export function Hero() {
             }
           >
             {/* Uses your configured Spline scene URL from app/data/profile.ts */}
-            <Spline scene={sceneUrl} />
+            <Spline
+              scene={sceneUrl}
+              onLoad={() => {
+                // Spline sometimes auto-plays timelines; leave default behavior but ensure any dev-only suppression is restored
+              }}
+              onError={(e: unknown) => {
+                if (process.env.NODE_ENV !== "production") {
+                  console.warn("Spline failed to load scene:", e);
+                }
+              }}
+            />
           </ErrorBoundary>
         ) : sceneOk === null ? (
           <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
