@@ -181,7 +181,8 @@ export function Hero() {
           ref={subtitleRef}
           className="mt-5 text-base sm:text-lg font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-violet-600 to-sky-400 dark:text-foreground/80 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
         >
-          {profile.summary[0]}
+          {(t("profile.summary", { returnObjects: true }) as string[])[0] ||
+            profile.summary[0]}
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <a
