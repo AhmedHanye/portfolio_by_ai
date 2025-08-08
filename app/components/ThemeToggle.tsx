@@ -1,9 +1,18 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useTheme } from "./ThemeProvider";
 
 export function ThemeToggle() {
   const { theme, resolvedTheme, toggle, setTheme } = useTheme();
-  const label = theme === "system" ? `System (${resolvedTheme})` : theme;
+  // Defer system-resolved text until after mount to avoid SSR/CSR mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const label =
+    theme === "system"
+      ? mounted
+        ? `System (${resolvedTheme})`
+        : "System"
+      : theme;
   return (
     <div className="flex items-center gap-2">
       <button
