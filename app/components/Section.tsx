@@ -36,7 +36,7 @@ export function Section({
   }, []);
 
   return (
-    <section id={id} className="py-20 sm:py-28">
+    <section id={id} className="py-20 sm:py-28 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-8">
           {title}
