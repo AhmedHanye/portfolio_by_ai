@@ -38,19 +38,19 @@
       {
         "title": "الملف الشخصي (09/2024)",
         "description": "يعرض المهارات والمشاريع باستخدام تقنيات الويب الحديثة.",
-        "image": "/vercel.svg",
+        "image": "/images/image2.png",
         "tags": ["Next.js", "TypeScript", "React"]
       },
       {
         "title": "سيكيوريتي بلس (01/2024)",
         "description": "ميزات أمان متقدمة لتعزيز سلامة التصفح.",
-        "image": "/window.svg",
+        "image": "/images/image3.webp",
         "tags": ["Security", "TypeScript", "Web"]
       },
       {
         "title": "Awwwards (Zentry) (12/2024 – 01/2025)",
         "description": "موقع حاصل على جوائز بتفاعلات ومرئيات عالية الجودة.",
-        "image": "/globe.svg",
+        "image": "/images/image1.png",
         "tags": ["Next.js", "Animations", "GSAP"]
       }
     ],

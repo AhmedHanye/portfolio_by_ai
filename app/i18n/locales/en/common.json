@@ -38,19 +38,19 @@
       {
         "title": "Portfolio (09/2024)",
         "description": "Showcases skills and projects using modern web technologies.",
-        "image": "/vercel.svg",
+        "image": "/images/image2.png",
         "tags": ["Next.js", "TypeScript", "React"]
       },
       {
         "title": "Security Plus (01/2024)",
         "description": "Advanced security features to enhance browsing safety.",
-        "image": "/window.svg",
+        "image": "/images/image3.webp",
         "tags": ["Security", "TypeScript", "Web"]
       },
       {
         "title": "Awwwards (Zentry) (12/2024 – 01/2025)",
         "description": "An award-winning website with high-end interactions and visuals.",
-        "image": "/globe.svg",
+        "image": "/images/image1.png",
         "tags": ["Next.js", "Animations", "GSAP"]
       }
     ],
