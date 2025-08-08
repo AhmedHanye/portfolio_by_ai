@@ -9,8 +9,23 @@ type Props = {
   onError?: (e: unknown) => void;
 };
 
-export default function SplineLite({ scene, className, onLoad, onError }: Props) {
+export default function SplineLite({
+  scene,
+  className,
+  onLoad,
+  onError,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const onLoadRef = useRef<Props["onLoad"] | null>(null);
+  const onErrorRef = useRef<Props["onError"] | null>(null);
+
+  useEffect(() => {
+    onLoadRef.current = onLoad || null;
+  }, [onLoad]);
+
+  useEffect(() => {
+    onErrorRef.current = onError || null;
+  }, [onError]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,10 +37,10 @@ export default function SplineLite({ scene, className, onLoad, onError }: Props)
     app
       .load(scene)
       .then(() => {
-        if (!cancelled) onLoad?.();
+        if (!cancelled) onLoadRef.current?.();
       })
       .catch((e) => {
-        if (!cancelled) onError?.(e);
+        if (!cancelled) onErrorRef.current?.(e);
       });
 
     return () => {
@@ -38,4 +53,3 @@ export default function SplineLite({ scene, className, onLoad, onError }: Props)
 
   return <canvas ref={canvasRef} className={className} />;
 }
- 
