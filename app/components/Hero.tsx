@@ -161,7 +161,7 @@ export function Hero() {
             />
           </ErrorBoundary>
         ) : sceneOk === null ? (
-          <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
+          <div className="h-full w-full grid place-items-center text-sm">
             Loading 3D…
           </div>
         ) : (
@@ -175,7 +175,7 @@ export function Hero() {
           ref={titleRef}
           className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-balance"
         >
-          <span>{profile.name}</span> 
+          <span>{profile.name}</span>
           <br />
           <span>{profile.title}</span>
         </h1>
