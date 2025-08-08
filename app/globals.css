@@ -5,6 +5,19 @@
   --foreground: #171717;
 }
 
+/* Explicit themes; dark class is used for Tailwind variants */
+[data-theme="light"],
+:root:not([data-theme]),
+:root:not(.dark) {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+[data-theme="dark"],
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,8 +25,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* System fallback if user chooses system and JS hasn’t applied a theme yet */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
