@@ -14,7 +14,7 @@ export function Projects() {
           <a
             key={p.title}
             href={p.href}
-            className="group rounded-xl border border-black/10 dark:border-white/10 overflow-hidden"
+            className="group rounded-xl border border-foreground/10 overflow-hidden"
           >
             <div className="relative aspect-[16/9] bg-foreground/5">
               {p.image ? (

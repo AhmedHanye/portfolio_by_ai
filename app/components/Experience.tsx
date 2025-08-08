@@ -12,7 +12,7 @@ export function Experience() {
         {experience.map((item) => (
           <li
             key={item.company}
-            className="rounded-lg border border-black/10 dark:border-white/10 p-5"
+            className="rounded-lg border border-foreground/10 p-5"
           >
             <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
               <h3 className="text-lg font-semibold">
