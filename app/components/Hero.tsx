@@ -169,7 +169,7 @@ export function Hero() {
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
         <h1
           ref={titleRef}
-          className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-balance text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-violet-600 to-sky-600 dark:text-foreground dark:bg-none drop-shadow-lg"
+          className="text-2xl sm:text-5xl font-extrabold tracking-tight leading-tight text-balance text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-violet-600 to-sky-600 dark:text-foreground dark:bg-none drop-shadow-lg"
         >
           <span>{profile.name}</span>
           <br />
@@ -177,7 +177,7 @@ export function Hero() {
         </h1>
         <p
           ref={subtitleRef}
-          className="mt-5 text-base sm:text-xl font-bold text-zinc-300 dark:text-foreground/80  max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
+          className="mt-5 text-base sm:text-lg font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-violet-600 to-sky-400 dark:text-foreground/80  max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
         >
           {profile.summary[0]}
         </p>
