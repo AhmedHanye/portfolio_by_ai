@@ -153,9 +153,6 @@ export function Hero() {
             {/* Uses your configured Spline scene URL from app/data/profile.ts */}
             <Spline
               scene={sceneUrl}
-              onLoad={() => {
-                // Spline sometimes auto-plays timelines; leave default behavior but ensure any dev-only suppression is restored
-              }}
               onError={(e: unknown) => {
                 if (process.env.NODE_ENV !== "production") {
                   console.warn("Spline failed to load scene:", e);
