@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { getGSAP } from "../lib/gsap";
 import { ErrorBoundary } from "./ErrorBoundary";
 
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-});
+const Spline = dynamic(() => import("@splinetool/react-spline"), { ssr: false });
+const SCENE_URL = "https://prod.spline.design/y5tvlYx0JtXYfVwm/scene.splinecode"; // Replace with your own scene URL
 
 export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [canRender, setCanRender] = useState(false);
+  const [sceneOk, setSceneOk] = useState<null | boolean>(null);
 
   useEffect(() => {
     const { gsap } = getGSAP();
@@ -46,10 +46,28 @@ export function Hero() {
     }
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
+    async function probeScene() {
+      try {
+        const res = await fetch(SCENE_URL, { method: "GET", mode: "cors", signal: controller.signal });
+        if (!cancelled) setSceneOk(res.ok);
+      } catch {
+        if (!cancelled) setSceneOk(false);
+      }
+    }
+    probeScene();
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, []);
+
   return (
     <section className="relative min-h-[90svh] grid place-items-center overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        {canRender ? (
+        {canRender && sceneOk === true ? (
           <ErrorBoundary
             fallback={
               <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
@@ -58,11 +76,13 @@ export function Hero() {
             }
           >
             {/* Replace with your Spline scene URL */}
-            <Spline scene="https://prod.spline.design/y5tvlYx0JtXYfVwm/scene.splinecode" />
+            <Spline scene={SCENE_URL} />
           </ErrorBoundary>
+        ) : sceneOk === null ? (
+          <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">Loading 3D…</div>
         ) : (
           <div className="h-full w-full grid place-items-center bg-foreground/5 text-sm">
-            3D not supported
+            {sceneOk === false ? "3D scene failed to load" : "3D not supported"}
           </div>
         )}
       </div>
