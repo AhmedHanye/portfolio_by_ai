@@ -169,7 +169,7 @@ export function Hero() {
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
         <h1
           ref={titleRef}
-          className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-balance"
+          className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-balance text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-violet-600 to-sky-600 dark:text-foreground dark:bg-none drop-shadow-lg"
         >
           <span>{profile.name}</span>
           <br />
@@ -177,20 +177,20 @@ export function Hero() {
         </h1>
         <p
           ref={subtitleRef}
-          className="mt-5 text-base sm:text-xl text-foreground/80 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
+          className="mt-5 text-base sm:text-xl font-bold text-zinc-300 dark:text-foreground/80  max-w-2xl sm:max-w-3xl mx-auto leading-relaxed sm:leading-8 text-pretty"
         >
           {profile.summary[0]}
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <a
             href="#projects"
-            className="rounded-md bg-foreground text-background px-4 py-2 text-sm font-medium hover:opacity-90"
+            className="rounded-md bg-foreground dark:bg-white text-background px-4 py-2 text-sm font-medium hover:opacity-90"
           >
             View Projects
           </a>
           <a
             href="#contact"
-            className="rounded-md border border-foreground/20 px-4 py-2 text-sm font-medium hover:bg-foreground/5"
+            className="rounded-md border border-foreground/20 bg-background px-4 py-2 text-sm font-medium hover:bg-background/90 dark:hover:bg-foreground/5"
           >
             Contact
           </a>
