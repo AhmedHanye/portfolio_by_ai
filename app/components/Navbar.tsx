@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { profile } from "../data/profile";
-import { ThemeToggle } from "./ThemeToggle";
+import { ModeToggle } from "./ModeToggle";
 
 const links = [
   { href: "#about", label: "About" },
@@ -31,7 +31,7 @@ export function Navbar() {
           ))}
         </nav>
         <div className="hidden md:block">
-          <ThemeToggle />
+          <ModeToggle />
         </div>
         <button
           className="md:hidden inline-flex items-center justify-center rounded-md border border-black/10 dark:border-white/10 px-3 py-2"
@@ -56,7 +56,7 @@ export function Navbar() {
               </a>
             ))}
             <div className="pt-2">
-              <ThemeToggle />
+              <ModeToggle />
             </div>
           </nav>
         </div>
