@@ -27,6 +27,8 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Offset for fixed navbar so hash targets aren’t hidden */
+  scroll-padding-top: 6rem; /* ~96px */
 }
 
 @media (prefers-reduced-motion: reduce) {
