@@ -1,6 +1,5 @@
 "use client";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { getGSAP } from "../lib/gsap";
 import { ErrorBoundary } from "./ErrorBoundary";
@@ -104,17 +103,7 @@ export function Hero() {
     <section className="relative min-h-[90svh] grid place-items-center overflow-hidden">
       <div className="absolute inset-0 -z-10">
         {prefersReduced ? (
-          profile.spline?.poster ? (
-            <Image
-              src={profile.spline.poster}
-              alt="Hero background"
-              fill
-              priority
-              className="object-cover"
-            />
-          ) : (
-            <div className="h-full w-full bg-foreground/5" />
-          )
+          <div className="h-full w-full bg-foreground/5" />
         ) : canRender && sceneOk === true ? (
           <ErrorBoundary
             fallback={

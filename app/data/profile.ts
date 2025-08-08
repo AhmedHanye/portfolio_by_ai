@@ -32,7 +32,6 @@ export type Profile = {
   experience: ExperienceItem[];
   spline?: {
     sceneUrl?: string; // external or local e.g. "/spline/scene.splinecode"
-    poster?: string; // optional poster image path
   };
 };
 
@@ -82,7 +81,6 @@ export const profile: Profile = {
     },
   ],
   spline: {
-    sceneUrl: "https://prod.spline.design/bMWBLutzRbxcOQP8/scene.splinecode", // set to a valid public Spline .splinecode URL or a local public path
-    poster: "", // optional: e.g. "/images/hero-poster.jpg"
+    sceneUrl: "https://prod.spline.design/bMWBLutzRbxcOQP8/scene.splinecode", // set to a valid public Spline .splinecode URL or a local public path (or "/spline/scene.splinecode")
   },
 };
